@@ -1,6 +1,6 @@
 name: easyuser
 description: "User management package for Flutter & Firebase."
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/thruthesky/easy_user
 
 environment:
