@@ -8,8 +8,18 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  cached_network_image: ^3.3.1
+  cloud_firestore: ^5.0.2
+  date_picker_v2: ^0.0.4
+  easy_helpers: ^0.0.3
+  easy_localization: ^3.0.7
+  easy_storage: ^0.0.2
+  firebase_auth: ^5.1.1
+  firebase_ui_firestore: ^1.6.4
   flutter:
     sdk: flutter
+  memory_cache: ^1.2.0
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:
