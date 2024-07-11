@@ -2,6 +2,7 @@ import 'package:easy_helpers/easy_helpers.dart';
 import 'package:easyuser/easyuser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_locale/easy_locale.dart';
 
 /// A simple email and password login form.
 ///
@@ -42,23 +43,23 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
           TextField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              label: Text('emAil'),
-              prefixIcon: Icon(
+            decoration: InputDecoration(
+              label: Text('emAIL'.t),
+              prefixIcon: const Icon(
                 Icons.email,
               ),
-              hintText: 'input email',
+              hintText: 'input email'.t,
             ),
           ),
           TextField(
             controller: passwordController,
             obscureText: true,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
                 Icons.lock,
               ),
-              label: Text('password'),
-              hintText: 'input password',
+              label: Text('password'.t),
+              hintText: 'input password'.t,
             ),
           ),
           const SizedBox(height: 24),

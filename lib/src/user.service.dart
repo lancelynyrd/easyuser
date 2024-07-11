@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_helpers/easy_helpers.dart';
 import 'package:easyuser/easyuser.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:flutter/material.dart';
@@ -23,8 +24,12 @@ class UserService {
   User? user;
   BehaviorSubject<User?> changes = BehaviorSubject();
 
-  /// Enable anonymous sign in
-  bool enableAnonymousSignIn = true;
+  /// Enable anonymous sign in, by default it is false.
+  ///
+  /// If it is true, the user will automatically sign in (as anonymous) when
+  /// the user signs out. This may lead confusion!
+  ///
+  bool enableAnonymousSignIn = false;
 
   /// to replace the fireflutter public profile screen, you can provide
   /// your own public profile screen in user initialization
@@ -41,13 +46,15 @@ class UserService {
 
   init({
     String? collectionName,
-    bool enableAnonymousSignIn = true,
+    bool enableAnonymousSignIn = false,
     Widget Function(User? user)? publicProfileScreen,
     Widget Function()? profileUpdateScreen,
   }) {
     if (initialized) {
+      dog('UserService is already initialized; It will not initialize again.');
       return;
     }
+    initialized = true;
     if (collectionName != null) {
       this.collectionName = collectionName;
     }

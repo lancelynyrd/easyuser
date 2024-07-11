@@ -12,7 +12,12 @@
 
 ## 초기화
 
+
+`UserService.instnace.init()` 을 통해서 사용자 기능을 초기화 합니다. 초기화를 하지 않아도 부분적으로 동작합니다. 하지만 로그인 사용자의 회원 정보 관리, Firestore 의 DB 구조 설정 등은 초기화 과정을 통해서 알려주어야 합니다.
+
 `UserService.instance.init()` 함수는 한번만 초기화를 하도록 되어져 있습니다. 그래서 앱에서 초기화를 하는 경우, 종속된 패키지가 `easyuser` 패키지를 사용한다고 해도 두 번 초기화를 하지 않고, 앱의 초기화 된 설정을 이어서 계속 진행합니다.
+
+
 
 
 
@@ -35,3 +40,27 @@
 ```
 
 
+
+
+## 위젯
+
+
+### 로그인 확인
+
+아래와 같이 `AuthStateChanges` 를 통해서 사용자 로그인 상태 변경을 확인 할 수 있다.
+
+이 위젯은 Firebase Auth 에 로그인을 했는지 안했는지에 따라 다르게 UI 를 표현 할 수 있으며, 초기화를 하지 않아도 동작합니다.
+
+```dart
+AuthStateChanges(
+  builder: (user) {
+    return user == null
+        ? const EmailPasswordLogin()
+        : Column(
+            children: [
+              Text('User UID: ${user.uid}'),
+            ],
+          );
+  },
+),
+```

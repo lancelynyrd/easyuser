@@ -39,6 +39,7 @@ dependencies:
   easyuser:
     path: ..
   easy_localization: ^3.0.7
+  easy_locale: ^0.0.2
 
 dev_dependencies:
   flutter_test:

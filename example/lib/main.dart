@@ -2,20 +2,11 @@ import 'package:example/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:easyuser/easyuser.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en', 'US'), Locale('de', 'DE')],
-      path:
-          'assets/translations', // <-- change the path of the translation files
-      fallbackLocale: const Locale('en', 'US'),
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -44,12 +35,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    UserService.instance.init();
   }
 
   @override
@@ -66,29 +55,23 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
             AuthStateChanges(
-                builder: (user) => user == null
-                    ? EmailPasswordLogin(
-                        onLogin: () {
-                          print('uid: ${my?.uid}');
-                        },
-                      )
+              builder: (user) {
+                return user == null
+                    ? const EmailPasswordLogin()
                     : Column(
                         children: [
-                          Text('UID: ${user.uid}'),
+                          Text('User UID: ${user.uid}'),
+                          ElevatedButton(
+                            onPressed: () => i.signOut(),
+                            child: const Text('Sign out'),
+                          ),
                         ],
-                      )),
+                      );
+              },
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
